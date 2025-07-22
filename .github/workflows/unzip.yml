@@ -13,7 +13,7 @@ jobs:
 
       - name: Unzip file
         run: |
-          unzip assets/hercules-main.zip -d αποσυμπιεσμενο/
+          unzip /hercules-main.zip -d αποσυμπιεσμενο/
 
       - name: Commit unzipped files
         run: |
