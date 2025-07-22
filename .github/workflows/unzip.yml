@@ -1,0 +1,29 @@
+name: Unzip File
+
+on:
+  workflow_dispatch:  # Χειροκίνητη εκκίνηση
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Unzip file
+        run: |
+          unzip assets/hercules-main.zip -d αποσυμπιεσμενο/
+
+      - name: Commit unzipped files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add αποσυμπιεσμενο/
+          git commit -m "Add unzipped contents"
+          git push
+
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
