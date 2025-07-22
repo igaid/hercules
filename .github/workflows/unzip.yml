@@ -1,29 +1,27 @@
 name: Unzip File
 
 on:
-  workflow_dispatch:  # Χειροκίνητη εκκίνηση
+  workflow_dispatch:  # Χειροκίνητη εκτέλεση
 
 jobs:
   unzip:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Install unzip (in case not pre-installed)
+        run: sudo apt-get update && sudo apt-get install -y unzip
 
       - name: Unzip file
         run: |
-          unzip hercules-main.zip -d αποσυμπιεσμενο/
+          unzip hercules-main.zip -d unzipped/
 
-      - name: Commit unzipped files
+      - name: Commit unzipped contents
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add αποσυμπιεσμενο/
-          git commit -m "Add unzipped contents"
+          git add unzipped/
+          git commit -m "Add unzipped files"
           git push
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
