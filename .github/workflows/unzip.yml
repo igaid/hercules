@@ -1,7 +1,10 @@
 name: Unzip File
 
 on:
-  workflow_dispatch:  # Χειροκίνητη εκτέλεση
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   unzip:
@@ -11,17 +14,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install unzip (in case not pre-installed)
+      - name: Install unzip
         run: sudo apt-get update && sudo apt-get install -y unzip
 
       - name: Unzip file
-        run: |
-          unzip hercules-main.zip -d unzipped/
+        run: unzip hercules-main.zip -d unzipped/
 
       - name: Commit unzipped contents
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add unzipped/
-          git commit -m "Add unzipped files"
-          git push
+          git commit -m "Add unzipped files" || echo "Nothing to commit"
+      - name: Set up Git credentials
+        run: git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+      - name: Push changes
+        run: git push
