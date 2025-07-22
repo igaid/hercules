@@ -1,0 +1,66 @@
+{% block navmenu-school %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+        <div class="container">
+            <a href="{% url 'main:home' %}" class="navbar-brand">Ηρακλής</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navmenu">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                                Σχολικά Πρωταθλήματα
+                            {% else %}
+                                Αγώνες ΑθλοΠΑΙΔΕΙΑΣ
+                            {% endif %}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="{% url 'main:school_registration' %}">
+                                Δήλωση Συμμετοχής στους Αγώνες
+                            </a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'main:team_sport_main_lists' %}">
+                                {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                                    Λίστες Ομάδων
+                                {% else %}
+                                    Καταστάσεις Συμμετοχής Ομάδων
+                                {% endif %}
+                            </a>
+                            </li>
+                            {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                                <li><a class="dropdown-item" href="{% url 'main:team_sport_phase_lists' %}">Καταστάσεις
+                                    Συμμετοχής Ομάδων</a></li>
+                            {% endif %}
+                            <li>
+                                <a class="dropdown-item" href="{% url 'main:individual_sports_groups_phases' %}">
+                                    Καταστάσεις Συμμετοχής Ατομικών Αθλημάτων
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle" style="font-size: 24px"></i>
+                            {{ user.last_name }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="{% url 'users:info' %}">Το Προφίλ μου</a></li>
+                            <li>
+                                <form id="frm_logout" method="post" action="{% url 'users:logout' %}">
+                                    {% csrf_token %}
+                                    <a class="dropdown-item" href="javascript:$('#frm_logout').submit();">Αποσύνδεση</a>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock navmenu-school %}

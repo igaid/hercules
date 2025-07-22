@@ -1,0 +1,218 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <H4>Εκτυπώσεις</H4>
+        <hr>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Λίστες και Καταστάσεις</th>
+                <th scope="col" class="text-center">Λήψη αρχείου</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                <tr>
+                    <td>
+                        1
+                    </td>
+                    <td>
+                        Δηλώσεις Συμμετοχής Ομάδων και Ατομικών Αθλημάτων
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_school_registrations' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        2
+                    </td>
+                    <td>
+                        Λίστες Ομάδων ανά Σχολείο
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_team_sport_main_lists_school' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        3
+                    </td>
+                    <td>
+                        Λίστες Ομάδων ανά Άθλημα
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_team_sport_main_lists_sport' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        4
+                    </td>
+                    <td>
+                        Καταστάσεις Συμμετοχής Ομάδων ανά Σχολείο
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_team_sport_phase_lists_school' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        5
+                    </td>
+                    <td>
+                        Καταστάσεις Συμμετοχής Ομάδων ανά Άθλημα
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_team_sport_phase_lists_sport' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        6
+                    </td>
+                    <td>
+                        Αγωνίσματα ανά Σχολείο
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_individual_sport_lists_school' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        7
+                    </td>
+                    <td>
+                        Αγωνίσματα ανά Αγώνισμα
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_individual_sport_lists_sport' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        8
+                    </td>
+                    <td>
+                        Καταστάσεις Συμμετοχής Ατομικών Αθλημάτων
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_individual_sports_groups_phases' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td>
+                        1
+                    </td>
+                    <td>
+                        Δηλώσεις Συμμετοχής Ομάδων και Ατομικών Αθλημάτων
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_school_registrations' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        2
+                    </td>
+                    <td>
+                        Καταστάσεις Συμμετοχής Ομάδων ανά Σχολείο
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_team_sport_main_lists_school' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        3
+                    </td>
+                    <td>
+                        Καταστάσεις Συμμετοχής Ομάδων ανά Άθλημα
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_team_sport_main_lists_sport' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        4
+                    </td>
+                    <td>
+                        Αγωνίσματα ανά Σχολείο
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_individual_sport_lists_school' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        5
+                    </td>
+                    <td>
+                        Αγωνίσματα ανά Αγώνισμα
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_individual_sport_lists_sport' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        6
+                    </td>
+                    <td>
+                        Καταστάσεις Συμμετοχής Ατομικών Αθλημάτων
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_individual_sports_groups_phases' %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock content %}

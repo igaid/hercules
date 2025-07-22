@@ -1,0 +1,148 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <H4>
+                    {{ title }}
+                </H4>
+            </div>
+            {% if status != 'submitted' %}
+                <div class="col text-end">
+                    <a href="{% url 'main:individual_sports_groups_phases' %}" class="no_underline">
+                        <button id="return-to-ml" class="btn btn-success" type="button" name="button">Επιστροφή
+                        </button>
+                    </a>
+                    <button id="create-individual_sport_list" class="btn btn-primary" type="button" name="button">
+                        Αγώνισμα
+                    </button>
+                </div>
+            {% else %}
+                <div class="col text-end">
+                    <a href="{% url 'main:individual_sports_groups_phases' %}" class="no_underline">
+                        <button id="return-to-ml" class="btn btn-success" type="button" name="button">Επιστροφή
+                        </button>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" class="text-center">Σχολικό έτος</th>
+                        <th scope="col">Αγώνισμα</th>
+                        <th scope="col">Εκπαιδευτικός</th>
+                        <th scope="col" class="text-center">Μαθητές</th>
+                        <th scope="col" class="text-center">Κλειδωμένο</th>
+                        <th scope="col" class="text-center">Ενέργειες</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in data %}
+                        <tr>
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+                            <td class="text-center">
+                                {{ item.school_year }}
+                            </td>
+                            <td>
+                                {{ item.individual_sport }}
+                            </td>
+                            <td>
+                                {{ item.pt_teacher }}
+                            </td>
+                            <td class="text-center">
+                                {{ item.individual_sport_students.all.count }}
+                            </td>
+                            <td class="text-center">
+                                {% if item.locked %}
+                                    <span class="bi bi-lock" style="font-size: 20px" aria-hidden="true"></span>
+                                {% else %}
+                                    <span class="bi bi-unlock" style="font-size: 20px" aria-hidden="true"></span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center">
+                                <a href="{% url 'main:individual_sport_list_students' item.id %}"
+                                   class="no_underline">
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                            data-toggle="tooltip" data-placement="top" title="Μαθητές">
+                                        <span class="bi bi-people-fill" aria-hidden="true"></span>
+                                    </button>
+                                </a>
+                                <button type="button" class="update-individual_sport_list btn btn-success btn-sm"
+                                        data-toggle="tooltip" data-placement="top" title="Επεξεργασία"
+                                        data-form-url="{% url 'main:update_individual_sport_list' item.id %}">
+                                    <span class="bi bi-pencil" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="delete-individual_sport_list btn btn-danger btn-sm"
+                                        data-toggle="tooltip" data-placement="top" title="Διαγραφή"
+                                        data-form-url="{% url 'main:delete_individual_sport_list' item.id %}">
+                                    <span class="bi bi-trash" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        {% if status == 'submitted' %}
+            <div class="col text-center">
+                <a href="{% url 'pdfs:pdf_individual_sports_group_phase' isgp_id %}" class="no_underline"
+                   target="_blank">
+                    <button class="btn btn-success" type="button" name="button">
+                        Εκτύπωση Καταστάσεων Συμμετοχής Ατομικών Αθλημάτων
+                    </button>
+                </a>
+            </div>
+        {% elif status == 'to_submit' %}
+            <div class="col text-center">
+                <a href="{% url 'pdfs:pdf_individual_sports_group_phase_preview' isgp_id %}"
+                   class="no_underline"
+                   target="_blank">
+                    <button class="btn btn-success" type="button" name="button">
+                        Προεπισκόπηση Κατάστασης
+                    </button>
+                </a>
+
+                <button id="submit-individual_sport_lists" class="btn btn-danger" type="button" name="button">
+                    Υποβολή στη ΔΔΕ
+                </button>
+            </div>
+        {% endif %}
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#create-individual_sport_list").modalForm({
+                formURL: "{% url 'main:create_individual_sport_list' isgp_id %}"
+            });
+
+            $("#submit-individual_sport_lists").modalForm({
+                formURL: "{% url 'main:submit_individual_sports_group_phase' isgp_id %}"
+            });
+
+            $(".update-individual_sport_list").each(function () {
+                $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: false});
+            });
+
+            $(".delete-individual_sport_list").each(function () {
+                $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: true});
+            });
+        });
+    </script>
+
+{% endblock content %}

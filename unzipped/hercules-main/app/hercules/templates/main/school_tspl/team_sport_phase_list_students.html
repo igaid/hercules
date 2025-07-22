@@ -1,0 +1,138 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <H4>{{ title }}</H4>
+            </div>
+            <div class="col text-end">
+                <a href="{% url 'main:team_sport_phase_lists' %}" class="no_underline">
+                    <button id="return-to-ml" class="btn btn-success" type="button" name="button">Επιστροφή
+                    </button>
+                </a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <!--                    <th scope="col">Σχολείο</th>-->
+                                    <!--                    <th scope="col" class="text-center">Σχολικό έτος</th>-->
+                                    <th scope="col">Αρ. Μητρώου</th>
+                                    <th scope="col">Επώνυμο</th>
+                                    <th scope="col">Όνομα</th>
+                                    <th scope="col">Όνομα πατέρα</th>
+                                    <th scope="col">Όνομα μητέρας</th>
+                                    <th scope="col" class="text-center">Έτος γέννησης</th>
+                                    <th scope="col">Φύλο</th>
+                                    <th scope="col" class="text-center">Τάξη</th>
+                                    <th scope="col" class="text-center">Επιλογή</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in data %}
+                                    <tr>
+                                        <td>
+                                            {{ forloop.counter }}
+                                        </td>
+                                        <!--                    <td>-->
+                                        <!--                        {{ item.school }}-->
+                                        <!--                    </td>-->
+                                        <!--                    <td class="text-center">-->
+                                        <!--                        {{ item.school_year }}-->
+                                        <!--                    </td>-->
+                                        <td>
+                                            {{ item.registry_no }}
+                                        </td>
+                                        <td>
+                                            {{ item.last_name }}
+                                        </td>
+                                        <td>
+                                            {{ item.first_name }}
+                                        </td>
+                                        <td>
+                                            {{ item.father_name }}
+                                        </td>
+                                        <td>
+                                            {{ item.mother_name }}
+                                        </td>
+                                        <td class="text-center">
+                                            {{ item.year_of_birth }}
+                                        </td>
+                                        <td>
+                                            {{ item.gender }}
+                                        </td>
+                                        <td class="text-center">
+                                            {{ item.school_class }}
+                                        </td>
+                                        <td class="text-center">
+                                            {% if phase == '1η' %}
+                                                <input type="checkbox" name="{{ item.id }}"
+                                                        {% if item.plays_in_phase_1 %}
+                                                       checked
+                                                        {% endif %}
+                                                >
+                                            {% elif phase == '2η' %}
+                                                <input type="checkbox" name="{{ item.id }}"
+                                                        {% if item.plays_in_phase_2 %}
+                                                       checked
+                                                        {% endif %}
+                                                >
+                                            {% else %}
+                                                <input type="checkbox" name="{{ item.id }}"
+                                                        {% if item.plays_in_phase_3 %}
+                                                       checked
+                                                        {% endif %}
+                                                >
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col text-center">
+                            <button class="btn btn-primary"
+                                    type="submit">Αποθήκευση
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% if hide_submit_btn != 'True' %}
+            <div class="row">
+                <div class="col text-center">
+                    <button id="submit-pl" class="btn btn-danger" type="button" name="button">Υποβολή στη ΔΔΕ
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#submit-pl").modalForm({
+                formURL: "{% url 'main:submit_team_sport_phase_list' team_sport_pl_id %}"
+            });
+        });
+    </script>
+
+{% endblock content %}

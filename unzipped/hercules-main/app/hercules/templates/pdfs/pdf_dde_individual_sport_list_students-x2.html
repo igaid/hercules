@@ -1,0 +1,461 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style type='text/css'>
+        @page {
+            size: A4 landscape;
+            margin: 1cm;
+        }
+
+        *, html {
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+        body {
+            padding: 10pt;
+        }
+
+        .table-bordered {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 4px;
+            font-family: Arial;
+            font-size: 10px;
+        }
+
+        div.break {
+            page-break-before: always;
+        }
+
+        p {
+            margin: 0.4em;
+        }
+    </style>
+    <title>{{ title }}</title>
+</head>
+<body>
+{% if data_boys %}
+    <table style="text-align: center; width: 100%">
+        <tbody>
+        <tr>
+            <td style="text-align: center; width: 20%; font-size: smaller">
+                <img src="{% static 'main/crest.png' %}" style="width: 40px"><br>
+                ΕΛΛΗΝΙΚΗ ΔΗΜΟΚΡΑΤΙΑ<br>
+                ΥΠΟΥΡΓΕΙΟ ΠΑΙΔΕΙΑΣ & ΘΡΗΣΚΕΥΜΑΤΩΝ<br>
+                ΔΙΕΥΘΥΝΣΗ ΦΥΣΙΚΗΣ ΑΓΩΓΗΣ<br>
+                Ο.Ε.Σ.Α.Δ: Δ.Δ.Ε. ΗΡΑΚΛΕΙΟΥ
+            </td>
+            <td>
+                <p>
+                    <strong>ΔΙΕΥΘΥΝΣΗ ΔΕΥΤΕΡΟΒΑΘΜΙΑΣ ΕΚΠΑΙΔΕΥΣΗΣ ΗΡΑΚΛΕΙΟΥ</strong>
+                </p>
+                <p>
+                    <strong>
+                        {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                            ΠΑΝΕΛΛΗΝΙΟΙ ΑΓΩΝΕΣ ΛΥΚΕΙΩΝ ΣΧ. ΕΤΟΥΣ {{ school_year }}
+                        {% else %}
+                            ΑΓΩΝΕΣ ΑθλοΠΑΙΔΕΙΑΣ ΣΧ. ΕΤΟΥΣ {{ school_year }}
+                        {% endif %}
+                    </strong>
+                </p>
+                <p>
+                    <strong style="font-size: larger;">ΠΙΝΑΚΙΟ: {{ sport }} (Αγόρια)</strong>
+                </p>
+                <p>
+                    {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                        <strong>*** ΛΥΚΕΙΟ ***</strong>
+                    {% else %}
+                        <strong>*** ΓΥΜΝΑΣΙΟ ***</strong>
+                    {% endif %}
+                </p>
+            </td>
+            <td style="text-align: center; width: 20%">&nbsp;</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table style="width: 100%">
+        <tbody>
+        <tr>
+            <td style="vertical-align: top; width: 40%">
+                <p>ΑΓΩΝΙΣΜΑ: {{ sport }} (Αγόρια)</p>
+                <p>ΤΟΠΟΣ:</p>
+            </td>
+            <td style="vertical-align: top; width: 50%">
+                <p>ΗΜΕΡΟΜΗΝΙΑ ΤΕΛΕΣΗΣ:</p>
+                <p>ΠΟΛΗ ΤΕΛΕΣΗΣ:</p>
+            </td>
+            <td style="vertical-align: top; width: 10%">
+                <p>ΦΑΣΗ:</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p></p>
+
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <td class="table-bordered" style="text-align: center; width: 20px">Α/Α</td>
+            <td class="table-bordered" style="text-align: center; width: 100px">Επώνυμο</td>
+            <td class="table-bordered" style="text-align: center; width: 80px">Όνομα</td>
+            <td class="table-bordered" style="text-align: center; width: 40px">Έτος Γέν.</td>
+            <td class="table-bordered" style="text-align: center; width: 140px">Σχολείο</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">100μ</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 30px">Μήκος</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Σφαίρα</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Ύψος</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">400μ</td>
+            <td class="table-bordered" style="text-align: center; width: 50px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Βαθμ. 1ης ημέρας</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in data_boys %}
+            <tr>
+                <td class="table-bordered" style="text-align: center">{{ forloop.counter }}</td>
+                <td class="table-bordered">{{ student.last_name }}</td>
+                <td class="table-bordered">{{ student.first_name }}</td>
+                <td class="table-bordered">{{ student.year_of_birth }}</td>
+                <td class="table-bordered">{{ student.school.last_name }}</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+            </tr>
+        {% endfor %}
+        {% for i in '0123456789'|make_list %}
+            <tr>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="break"></div>
+
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <td class="table-bordered" style="text-align: center; width: 20px">Α/Α</td>
+            <td class="table-bordered" style="text-align: center; width: 100px">Επώνυμο</td>
+            <td class="table-bordered" style="text-align: center; width: 80px">Όνομα</td>
+            <td class="table-bordered" style="text-align: center; width: 40px">Έτος Γέν.</td>
+            <td class="table-bordered" style="text-align: center; width: 140px">Σχολείο</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">110μ Εμπ.</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 30px">Δίσκος</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Επί Κοντώ</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Ακόντιο</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Βαθμ. 9 Αγων.</td>
+            <td class="table-bordered" style="text-align: center; width: 50px">1500μ</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Τελική Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 40px">Κατάταξη</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in data_boys %}
+            <tr>
+                <td class="table-bordered" style="text-align: center">{{ forloop.counter }}</td>
+                <td class="table-bordered">{{ student.last_name }}</td>
+                <td class="table-bordered">{{ student.first_name }}</td>
+                <td class="table-bordered">{{ student.year_of_birth }}</td>
+                <td class="table-bordered">{{ student.school.last_name }}</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+            </tr>
+        {% endfor %}
+        {% for i in '0123456789'|make_list %}
+            <tr>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <table style="text-align: center; width: 100%; padding-top: 24px">
+        <tbody>
+        <tr>
+            <td style="text-align: center; width: 33%">Ο Αλυτάρχης</td>
+            <td style="text-align: center; width: 33%">Ο Έφορος</td>
+            <td style="text-align: center; width: 34%">Οι Κριτές</td>
+        </tr>
+        </tbody>
+    </table>
+{% endif %}
+
+{% if data_boys and data_girls %}
+    <div class="break"></div>
+{% endif %}
+
+{% if data_girls %}
+    <table style="text-align: center; width: 100%">
+        <tbody>
+        <tr>
+            <td style="text-align: center; width: 20%; font-size: smaller">
+                <img src="{% static 'main/crest.png' %}" style="width: 40px"><br>
+                ΕΛΛΗΝΙΚΗ ΔΗΜΟΚΡΑΤΙΑ<br>
+                ΥΠΟΥΡΓΕΙΟ ΠΑΙΔΕΙΑΣ & ΘΡΗΣΚΕΥΜΑΤΩΝ<br>
+                ΔΙΕΥΘΥΝΣΗ ΦΥΣΙΚΗΣ ΑΓΩΓΗΣ<br>
+                Ο.Ε.Σ.Α.Δ: Δ.Δ.Ε. ΗΡΑΚΛΕΙΟΥ
+            </td>
+            <td>
+                <p>
+                    <strong>ΔΙΕΥΘΥΝΣΗ ΔΕΥΤΕΡΟΒΑΘΜΙΑΣ ΕΚΠΑΙΔΕΥΣΗΣ ΗΡΑΚΛΕΙΟΥ</strong>
+                </p>
+                <p>
+                    <strong>
+                        {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                            ΠΑΝΕΛΛΗΝΙΟΙ ΑΓΩΝΕΣ ΛΥΚΕΙΩΝ ΣΧ. ΕΤΟΥΣ {{ school_year }}
+                        {% else %}
+                            ΑΓΩΝΕΣ ΑθλοΠΑΙΔΕΙΑΣ ΣΧ. ΕΤΟΥΣ {{ school_year }}
+                        {% endif %}
+                    </strong>
+                </p>
+                <p>
+                    <strong style="font-size: larger;">ΠΙΝΑΚΙΟ: {{ sport }} (Κορίτσια)</strong>
+                </p>
+                <p>
+                    {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                        <strong>*** ΛΥΚΕΙΟ ***</strong>
+                    {% else %}
+                        <strong>*** ΓΥΜΝΑΣΙΟ ***</strong>
+                    {% endif %}
+                </p>
+            </td>
+            <td style="text-align: center; width: 20%">&nbsp;</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table style="width: 100%">
+        <tbody>
+        <tr>
+            <td style="vertical-align: top; width: 40%">
+                <p>ΑΓΩΝΙΣΜΑ: {{ sport }} (Κορίτσια)</p>
+                <p>ΤΟΠΟΣ:</p>
+            </td>
+            <td style="vertical-align: top; width: 50%">
+                <p>ΗΜΕΡΟΜΗΝΙΑ ΤΕΛΕΣΗΣ:</p>
+                <p>ΠΟΛΗ ΤΕΛΕΣΗΣ:</p>
+            </td>
+            <td style="vertical-align: top; width: 10%">
+                <p>ΦΑΣΗ:</p>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p></p>
+
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <td class="table-bordered" style="text-align: center; width: 20px">Α/Α</td>
+            <td class="table-bordered" style="text-align: center; width: 100px">Επώνυμο</td>
+            <td class="table-bordered" style="text-align: center; width: 80px">Όνομα</td>
+            <td class="table-bordered" style="text-align: center; width: 40px">Έτος Γέν.</td>
+            <td class="table-bordered" style="text-align: center; width: 140px">Σχολείο</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">100μ</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 30px">Μήκος</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Σφαίρα</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Ύψος</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">400μ</td>
+            <td class="table-bordered" style="text-align: center; width: 50px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Βαθμ. 1ης ημέρας</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in data_girls %}
+            <tr>
+                <td class="table-bordered" style="text-align: center">{{ forloop.counter }}</td>
+                <td class="table-bordered">{{ student.last_name }}</td>
+                <td class="table-bordered">{{ student.first_name }}</td>
+                <td class="table-bordered">{{ student.year_of_birth }}</td>
+                <td class="table-bordered">{{ student.school.last_name }}</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+            </tr>
+        {% endfor %}
+        {% for i in '0123456789'|make_list %}
+            <tr>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="break"></div>
+
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <td class="table-bordered" style="text-align: center; width: 20px">Α/Α</td>
+            <td class="table-bordered" style="text-align: center; width: 100px">Επώνυμο</td>
+            <td class="table-bordered" style="text-align: center; width: 80px">Όνομα</td>
+            <td class="table-bordered" style="text-align: center; width: 40px">Έτος Γέν.</td>
+            <td class="table-bordered" style="text-align: center; width: 140px">Σχολείο</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">110μ Εμπ.</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 30px">Δίσκος</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Επί Κοντώ</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Ακόντιο</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Βαθμ. 9 Αγων.</td>
+            <td class="table-bordered" style="text-align: center; width: 50px">1500μ</td>
+            <td class="table-bordered" style="text-align: center; width: 35px">Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 25px">Τελική Βαθμ.</td>
+            <td class="table-bordered" style="text-align: center; width: 40px">Κατάταξη</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in data_girls %}
+            <tr>
+                <td class="table-bordered" style="text-align: center">{{ forloop.counter }}</td>
+                <td class="table-bordered">{{ student.last_name }}</td>
+                <td class="table-bordered">{{ student.first_name }}</td>
+                <td class="table-bordered">{{ student.year_of_birth }}</td>
+                <td class="table-bordered">{{ student.school.last_name }}</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+            </tr>
+        {% endfor %}
+        {% for i in '0123456789'|make_list %}
+            <tr>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+                <td class="table-bordered">&nbsp;</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <table style="text-align: center; width: 100%; padding-top: 24px">
+        <tbody>
+        <tr>
+            <td style="text-align: center; width: 33%">Ο Αλυτάρχης</td>
+            <td style="text-align: center; width: 33%">Ο Έφορος</td>
+            <td style="text-align: center; width: 34%">Οι Κριτές</td>
+        </tr>
+        </tbody>
+    </table>
+{% endif %}
+</body>
+</html>

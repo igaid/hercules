@@ -1,0 +1,345 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    {% if  form.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <H4>Δήλωση Συμμετοχής στους Αγώνες</H4>
+        <hr>
+        {% if not data.locked %}
+            <form method="POST">
+            {% csrf_token %}
+        {% endif %}
+
+        {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="text-center">
+                        ΟΜΑΔΙΚΑ ΑΘΛΗΜΑΤΑ
+                    </th>
+                    <th class="text-center">
+                        ΑΓΟΡΙΩΝ
+                    </th>
+                    <th class="text-center">
+                        ΚΟΡΙΤΣΙΩΝ
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-center">
+                        ΠΟΔΟΣΦΑΙΡΟ
+                    </td>
+                    <td class="text-center">
+                        {{ form.football_boys|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.football_girls|as_crispy_field }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        ΧΕΙΡΟΣΦΑΙΡΙΣΗ
+                    </td>
+                    <td class="text-center">
+                        {{ form.handball_boys|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.handball_girls|as_crispy_field }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        ΚΑΛΑΘΟΣΦΑΙΡΙΣΗ
+                    </td>
+                    <td class="text-center">
+                        {{ form.basketball_boys|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.basketball_girls|as_crispy_field }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        BEACH VOLLEY
+                    </td>
+                    <td class="text-center">
+                        {{ form.beach_volleyball_boys|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.beach_volleyball_girls|as_crispy_field }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        ΠΕΤΟΣΦΑΙΡΙΣΗ
+                    </td>
+                    <td class="text-center">
+                        {{ form.volleyball_boys|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.volleyball_girls|as_crispy_field }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="text-center">
+                        ΑΤΟΜΙΚΑ ΑΘΛΗΜΑΤΑ
+                    </th>
+                    <th class="text-center">
+                        ΑΓΟΡΙΩΝ
+                    </th>
+                    <th class="text-center">
+                        ΚΟΡΙΤΣΙΩΝ
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-center">
+                        ΚΛΑΣΣΙΚΟΣ ΑΘΛΗΤΙΣΜΟΣ
+                    </td>
+                    <td class="text-center">
+                        {{ form.track_boys }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.track_girls }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        {% else %}
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="text-center">
+                        ΟΜΑΔΙΚΑ ΑΘΛΗΜΑΤΑ
+                    </th>
+                    <th class="text-center">
+                        ΑΓΟΡΙΩΝ
+                    </th>
+                    <th class="text-center">
+                        ΚΟΡΙΤΣΙΩΝ
+                    </th>
+                    <th class="text-center">
+                        ΜΙΚΤΗ (ΑΓΟΡΙΑ + ΚΟΡΙΤΣΙΑ)
+                    </th>
+                    <th class="text-center">
+                        ΜΙΚΤΗ (ΣΜΕΑ + ΓΕΝΙΚΗΣ)
+                    </th>
+                    <th class="text-center">
+                        ΣΧΟΛΕΙΟ ΓΙΑ ΜΙΚΤΗ (ΣΜΕΑ + ΓΕΝΙΚΗΣ)
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-center">
+                        ΠΟΔΟΣΦΑΙΡΟ
+                    </td>
+                    <td class="text-center">
+                        {{ form.football_boys|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.football_girls|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.football_mix_1|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.football_mix_2|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.football_mix_school|as_crispy_field }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        ΧΕΙΡΟΣΦΑΙΡΙΣΗ
+                    </td>
+                    <td class="text-center">
+                        {{ form.handball_boys|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.handball_girls|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.handball_mix_1|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.handball_mix_2|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.handball_mix_school|as_crispy_field }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        ΚΑΛΑΘΟΣΦΑΙΡΙΣΗ
+                    </td>
+                    <td class="text-center">
+                        {{ form.basketball_boys|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.basketball_girls|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.basketball_mix_1|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.basketball_mix_2|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.basketball_mix_school|as_crispy_field }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        BEACH VOLLEY
+                    </td>
+                    <td class="text-center">
+                        {{ form.beach_volleyball_boys|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.beach_volleyball_girls|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.beach_volleyball_mix_1|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.beach_volleyball_mix_2|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.beach_volleyball_mix_school|as_crispy_field }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        ΠΕΤΟΣΦΑΙΡΙΣΗ
+                    </td>
+                    <td class="text-center">
+                        {{ form.volleyball_boys|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.volleyball_girls|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.volleyball_mix_1|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.volleyball_mix_2|as_crispy_field }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.volleyball_mix_school|as_crispy_field }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class="text-center">
+                        ΑΤΟΜΙΚΑ ΑΘΛΗΜΑΤΑ
+                    </th>
+                    <th class="text-center">
+                        ΑΓΟΡΙΩΝ
+                    </th>
+                    <th class="text-center">
+                        ΚΟΡΙΤΣΙΩΝ
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-center">
+                        ΚΟΛΥΜΒΗΣΗ
+                    </td>
+                    <td class="text-center">
+                        {{ form.swimming_boys }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.swimming_girls }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        ΚΛΑΣΣΙΚΟΣ ΑΘΛΗΤΙΣΜΟΣ
+                    </td>
+                    <td class="text-center">
+                        {{ form.track_boys }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.track_girls }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        ΞΙΦΑΣΚΙΑ
+                    </td>
+                    <td class="text-center">
+                        {{ form.fencing_boys }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.fencing_girls }}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="text-center">
+                        ΑΝΤΙΣΦΑΙΡΙΣΗ
+                    </td>
+                    <td class="text-center">
+                        {{ form.tennis_boys }}
+                    </td>
+                    <td class="text-center">
+                        {{ form.tennis_girls }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        {% endif %}
+    
+        {% if not data.locked %}
+            <div class="form-group text-center">
+                <a class="btn btn-success" href="{% url 'main:home' %}">Επιστροφή</a>
+                <button class="btn btn-primary" type="submit">Αποθήκευση</button>
+                {% if status == 'to_submit' %}
+                    <button id="submit-school-registration" class="btn btn-danger" type="button" name="button">
+                        Υποβολή στη ΔΔΕ
+                    </button>
+                {% endif %}
+            </div>
+            </form>
+        {% else %}
+            <div class="form-group text-center">
+                <a class="btn btn-success" href="{% url 'main:home' %}">Επιστροφή</a>
+                <a class="btn btn-info" href="{% url 'pdfs:pdf_school_registration' form.instance.id %}"
+                   target="_blank">Εκτύπωση</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#submit-school-registration").modalForm({
+                formURL: "{% url 'main:submit_school_registration' %}"
+            });
+        });
+    </script>
+{% endblock content %}

@@ -1,0 +1,77 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style type='text/css'>
+        @page {
+            size: A4 landscape;
+            margin: 1cm;
+        }
+
+        *, html {
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+        body {
+            padding: 10pt;
+        }
+
+        .table-bordered {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 4px;
+        }
+    </style>
+    <title>{{ title }}</title>
+</head>
+<body>
+
+<h3 style="text-align: center;font-size: 18px;font-weight: bold">{{ title }}</h3>
+<table class="table-bordered" style="text-align: center; width: 100%">
+    <thead>
+    <tr>
+        <th scope="col" class="table-bordered">#</th>
+        <th scope="col" class="table-bordered">Σχολείο</th>
+        <th scope="col" class="table-bordered">Σχολικό έτος</th>
+        <th scope="col" class="table-bordered">Αγώνισμα</th>
+        <th scope="col" class="table-bordered">Φάση</th>
+        <th scope="col" class="table-bordered">Εκπαιδευτικός</th>
+        <th scope="col" class="table-bordered">Μαθητές</th>
+        <th scope="col" class="table-bordered">Χρονική σήμανση</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for item in data %}
+        <tr>
+            <td class="table-bordered">
+                {{ forloop.counter }}
+            </td>
+            <td class="table-bordered">
+                {{ item.school.last_name }}
+            </td>
+            <td class="table-bordered">
+                {{ item.school_year }}
+            </td>
+            <td class="table-bordered">
+                {{ item.individual_sport }}
+            </td>
+            <td class="table-bordered">
+                {{ item.individual_sports_group_phase.phase }}
+            </td>
+            <td class="table-bordered">
+                {{ item.pt_teacher }}
+            </td>
+            <td class="table-bordered">
+                {{ item.individual_sport_students.all.count }}
+            </td>
+            <td class="table-bordered">
+                {{ item.submit_date_time }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

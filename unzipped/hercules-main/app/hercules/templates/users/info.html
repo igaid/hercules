@@ -1,0 +1,22 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <div>
+        <h2 class="account-heading">Info</h2>
+        <hr>
+        <ul style="list-style-type: square;">
+            <li>
+                <strong>Χρήστης:</strong> {{ user.username }}
+            </li>
+            {% if user.last_name %}
+                <li>
+                    <strong>Όνομα:</strong> {{ user.last_name }}
+                </li>
+            {% endif %}
+            {% if user.email %}
+                <li>
+                    <strong>E-mail:</strong> {{ user.email }}
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock content %}

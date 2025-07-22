@@ -1,0 +1,134 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <H4>
+            Δηλώσεις Συμμετοχής στους Αγώνες
+        </H4>
+        <hr>
+        <table id="my-sr-table" class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Σχολείο</th>
+                <th scope="col" class="text-center">Σχολικό έτος</th>
+                <th scope="col" class="text-center">Χρονική σήμανση</th>
+                <th scope="col" class="text-center">Λήψη αρχείου</th>
+                <th scope="col" class="text-center">Ξεκλείδωμα</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>
+                        {{ forloop.counter }}
+                    </td>
+                    <td>
+                        {{ item.school.last_name }}
+                    </td>
+                    <td class="text-center">
+                        {{ item.school_year }}
+                    </td>
+                    <td class="text-center">
+                        {{ item.submit_date_time }}
+                    </td>
+                    <td class="text-center">
+                        <a href="{% url 'pdfs:pdf_school_registration' item.id %}" class="no_underline"
+                           target="_blank">
+                            <span class="bi bi-file-pdf" style="font-size: 24px" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td class="text-center">
+                        <button type="button" class="unlock-school-registration btn btn-danger btn-sm"
+                                data-toggle="tooltip" data-placement="top" title="Ξεκλείδωμα"
+                                data-form-url="{% url 'main:unlock_school_registration' item.id %}">
+                            <span class="bi bi-unlock" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".unlock-school-registration").each(function () {
+                $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: false});
+            });
+        });
+
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#my-sr-table thead tr')
+                .clone(true)
+                .addClass('filters')
+                .appendTo('#my-sr-table thead');
+
+            var table = $('#my-sr-table').DataTable({
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.1/i18n/el.json'
+                },
+                pageLength: 25,
+                orderCellsTop: true,
+                fixedHeader: true,
+                autoWidth: false,
+                initComplete: function () {
+                    var api = this.api();
+
+                    // For each column
+                    api
+                        .columns([1, 2, 3])
+                        .eq(0)
+                        .each(function (colIdx) {
+                            // Set the header cell to contain the input element
+                            var cell = $('.filters th').eq(
+                                $(api.column(colIdx).header()).index()
+                            );
+                            var title = $(cell).text();
+                            $(cell).html('<input type="text" placeholder="' + title + '" />');
+
+                            // On every keypress in this input
+                            $(
+                                'input',
+                                $('.filters th').eq($(api.column(colIdx).header()).index())
+                            )
+                                .off('keyup change')
+                                .on('change', function (e) {
+                                    // Get the search value
+                                    $(this).attr('title', $(this).val());
+                                    var regexr = '({search})'; //$(this).parents('th').find('select').val();
+
+                                    var cursorPosition = this.selectionStart;
+                                    // Search the column for that value
+                                    api
+                                        .column(colIdx)
+                                        .search(
+                                            this.value != ''
+                                                ? regexr.replace('{search}', '(((' + this.value + ')))')
+                                                : '',
+                                            this.value != '',
+                                            this.value == ''
+                                        )
+                                        .draw();
+                                })
+                                .on('keyup', function (e) {
+                                    e.stopPropagation();
+
+                                    $(this).trigger('change');
+                                    $(this)
+                                        .focus()[0]
+                                        .setSelectionRange(cursorPosition, cursorPosition);
+                                });
+                        });
+                },
+            });
+        });
+    </script>
+
+{% endblock content %}

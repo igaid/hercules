@@ -1,0 +1,75 @@
+{% load django_bootstrap5 %}
+
+<form method="post" id="add_student_to_team_sport_ml_form">
+    {% csrf_token %}
+
+    <div class="modal-header">
+        <h5 class="modal-title">Καταχώριση Νέου Μαθητή</h5>
+        <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            {% if form.non_field_errors %}
+                <div class="row">
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.registry_no wrapper_class='invalid' placeholder='' show_label=True %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.last_name wrapper_class='invalid' placeholder='' show_label=True %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.first_name wrapper_class='invalid' placeholder='' show_label=True %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.father_name wrapper_class='invalid' placeholder='' show_label=True %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.mother_name wrapper_class='invalid' placeholder='' show_label=True %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.gender wrapper_class='invalid' placeholder='' show_label=True %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.year_of_birth wrapper_class='invalid' placeholder='' show_label=True %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.school_class wrapper_class='invalid' placeholder='' show_label=True %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <i class="bi-arrow-left-circle" aria-hidden="true"></i>&nbsp;Επιστροφή
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi-check-circle" aria-hidden="true"></i>&nbsp;Καταχώριση
+        </button>
+    </div>
+</form>

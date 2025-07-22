@@ -1,0 +1,390 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style type='text/css'>
+        @page {
+            size: A4 landscape;
+            margin: 1cm;
+        }
+
+        *, html {
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+        body {
+            padding: 10pt;
+        }
+
+        .table-bordered {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 4px;
+        }
+
+        div.break {
+            page-break-before: always;
+        }
+
+        p {
+            margin: 0.4em;
+        }
+    </style>
+    <title>{{ title }}</title>
+</head>
+<body>
+
+<h3 style="text-align: center;font-size: 18px;font-weight: bold">{{ title }} - {{ school_year }}</h3>
+
+{% if app_state_mode != 'Σχολικά Πρωταθλήματα' %}
+    <h4 style="text-align: center;font-size: 16px;font-weight: bold">Ομάδες</h4>
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <th scope="col" class="table-bordered">
+                ΟΜΑΔΙΚΑ ΑΘΛΗΜΑΤΑ
+            </th>
+            <th scope="col" class="table-bordered">
+                ΑΓΟΡΙΩΝ
+            </th>
+            <th scope="col" class="table-bordered">
+                ΚΟΡΙΤΣΙΩΝ
+            </th>
+            <th scope="col" class="table-bordered">
+                ΜΙΚΤΗ (ΑΓΟΡΙΑ + ΚΟΡΙΤΣΙΑ)
+            </th>
+            <th scope="col" class="table-bordered">
+                ΜΙΚΤΗ (ΣΜΕΑ + ΓΕΝΙΚΗΣ)
+            </th>
+            <th scope="col" class="table-bordered">
+                ΣΧΟΛΕΙΟ ΓΙΑ ΜΙΚΤΗ (ΣΜΕΑ + ΓΕΝΙΚΗΣ)
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="table-bordered">
+                ΠΟΔΟΣΦΑΙΡΟ
+            </td>
+            <td class="table-bordered">
+                {{ data.football_boys }}
+            </td>
+            <td class="table-bordered">
+                {{ data.football_girls }}
+            </td>
+            <td class="table-bordered">
+                {{ data.football_mix_1 }}
+            </td>
+            <td class="table-bordered">
+                {{ data.football_mix_2 }}
+            </td>
+            <td class="table-bordered">
+                {{ data.football_mix_school }}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                ΧΕΙΡΟΣΦΑΙΡΙΣΗ
+            </td>
+            <td class="table-bordered">
+                {{ data.handball_boys }}
+            </td>
+            <td class="table-bordered">
+                {{ data.handball_girls }}
+            </td>
+            <td class="table-bordered">
+                {{ data.handball_mix_1 }}
+            </td>
+            <td class="table-bordered">
+                {{ data.handball_mix_2 }}
+            </td>
+            <td class="table-bordered">
+                {{ data.handball_mix_school }}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                ΚΑΛΑΘΟΣΦΑΙΡΙΣΗ
+            </td>
+            <td class="table-bordered">
+                {{ data.basketball_boys }}
+            </td>
+            <td class="table-bordered">
+                {{ data.basketball_girls }}
+            </td>
+            <td class="table-bordered">
+                {{ data.basketball_mix_1 }}
+            </td>
+            <td class="table-bordered">
+                {{ data.basketball_mix_2 }}
+            </td>
+            <td class="table-bordered">
+                {{ data.basketball_mix_school }}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                BEACH VOLLEY
+            </td>
+            <td class="table-bordered">
+                {{ data.beach_volleyball_boys }}
+            </td>
+            <td class="table-bordered">
+                {{ data.beach_volleyball_girls }}
+            </td>
+            <td class="table-bordered">
+                {{ data.beach_volleyball_mix_1 }}
+            </td>
+            <td class="table-bordered">
+                {{ data.beach_volleyball_mix_2 }}
+            </td>
+            <td class="table-bordered">
+                {{ data.beach_volleyball_mix_school }}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                ΠΕΤΟΣΦΑΙΡΙΣΗ
+            </td>
+            <td class="table-bordered">
+                {{ data.volleyball_boys }}
+            </td>
+            <td class="table-bordered">
+                {{ data.volleyball_girls }}
+            </td>
+            <td class="table-bordered">
+                {{ data.volleyball_mix_1 }}
+            </td>
+            <td class="table-bordered">
+                {{ data.volleyball_mix_2 }}
+            </td>
+            <td class="table-bordered">
+                {{ data.volleyball_mix_school }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h4 style="text-align: center;font-size: 16px;font-weight: bold">Ατομικά Αθλήματα</h4>
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <th scope="col" class="table-bordered">
+                ΑΤΟΜΙΚΑ ΑΘΛΗΜΑΤΑ
+            </th>
+            <th scope="col" class="table-bordered">
+                ΑΓΟΡΙΩΝ
+            </th>
+            <th scope="col" class="table-bordered">
+                ΚΟΡΙΤΣΙΩΝ
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="table-bordered">
+                ΚΟΛΥΜΒΗΣΗ
+            </td>
+            <td class="table-bordered">
+                {% if data.swimming_boys %}
+                    ΝΑΙ
+                {% else %}
+                    ΟΧΙ
+                {% endif %}
+            </td>
+            <td class="table-bordered">
+                {% if data.swimming_girls %}
+                    ΝΑΙ
+                {% else %}
+                    ΟΧΙ
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                ΚΛΑΣΣΙΚΟΣ ΑΘΛΗΤΙΣΜΟΣ
+            </td>
+            <td class="table-bordered">
+                {% if data.track_boys %}
+                    ΝΑΙ
+                {% else %}
+                    ΟΧΙ
+                {% endif %}
+            </td>
+            <td class="table-bordered">
+                {% if data.track_girls %}
+                    ΝΑΙ
+                {% else %}
+                    ΟΧΙ
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                ΞΙΦΑΣΚΙΑ
+            </td>
+            <td class="table-bordered">
+                {% if data.fencing_boys %}
+                    ΝΑΙ
+                {% else %}
+                    ΟΧΙ
+                {% endif %}
+            </td>
+            <td class="table-bordered">
+                {% if data.fencing_girls %}
+                    ΝΑΙ
+                {% else %}
+                    ΟΧΙ
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                ΑΝΤΙΣΦΑΙΡΙΣΗ
+            </td>
+            <td class="table-bordered">
+                {% if data.tennis_boys %}
+                    ΝΑΙ
+                {% else %}
+                    ΟΧΙ
+                {% endif %}
+            </td>
+            <td class="table-bordered">
+                {% if data.tennis_girls %}
+                    ΝΑΙ
+                {% else %}
+                    ΟΧΙ
+                {% endif %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% else %}
+    <h4 style="text-align: center;font-size: 16px;font-weight: bold">Ομάδες</h4>
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <th scope="col" class="table-bordered">
+                ΟΜΑΔΙΚΑ ΑΘΛΗΜΑΤΑ
+            </th>
+            <th scope="col" class="table-bordered">
+                ΑΓΟΡΙΩΝ
+            </th>
+            <th scope="col" class="table-bordered">
+                ΚΟΡΙΤΣΙΩΝ
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="table-bordered">
+                ΠΟΔΟΣΦΑΙΡΟ
+            </td>
+            <td class="table-bordered">
+                {{ data.football_boys }}
+            </td>
+            <td class="table-bordered">
+                {{ data.football_girls }}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                ΧΕΙΡΟΣΦΑΙΡΙΣΗ
+            </td>
+            <td class="table-bordered">
+                {{ data.handball_boys }}
+            </td>
+            <td class="table-bordered">
+                {{ data.handball_girls }}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                ΚΑΛΑΘΟΣΦΑΙΡΙΣΗ
+            </td>
+            <td class="table-bordered">
+                {{ data.basketball_boys }}
+            </td>
+            <td class="table-bordered">
+                {{ data.basketball_girls }}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                BEACH VOLLEY
+            </td>
+            <td class="table-bordered">
+                {{ data.beach_volleyball_boys }}
+            </td>
+            <td class="table-bordered">
+                {{ data.beach_volleyball_girls }}
+            </td>
+        </tr>
+        <tr>
+            <td class="table-bordered">
+                ΠΕΤΟΣΦΑΙΡΙΣΗ
+            </td>
+            <td class="table-bordered">
+                {{ data.volleyball_boys }}
+            </td>
+            <td class="table-bordered">
+                {{ data.volleyball_girls }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h4 style="text-align: center;font-size: 16px;font-weight: bold">Ατομικά Αθλήματα</h4>
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <th scope="col" class="table-bordered">
+                ΑΤΟΜΙΚΑ ΑΘΛΗΜΑΤΑ
+            </th>
+            <th scope="col" class="table-bordered">
+                ΑΓΟΡΙΩΝ
+            </th>
+            <th scope="col" class="table-bordered">
+                ΚΟΡΙΤΣΙΩΝ
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="table-bordered">
+                ΚΛΑΣΣΙΚΟΣ ΑΘΛΗΤΙΣΜΟΣ
+            </td>
+            <td class="table-bordered">
+                {% if data.track_boys %}
+                    ΝΑΙ
+                {% else %}
+                    ΟΧΙ
+                {% endif %}
+            </td>
+            <td class="table-bordered">
+                {% if data.track_girls %}
+                    ΝΑΙ
+                {% else %}
+                    ΟΧΙ
+                {% endif %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endif %}
+
+<table style="text-align: center; width: 100%; padding-top: 24px">
+    <tbody>
+    <tr>
+        <td style="text-align: center; width: 33%">&nbsp;</td>
+        <td style="text-align: center; width: 33%">&nbsp;</td>
+        <td style="text-align: center; padding-top: 24px; width: 34%">{{ submit_date }}</td>
+    </tr>
+    <tr>
+        <td style="text-align: center; width: 33%">Ο Καθηγητής Φ.Α.</td>
+        <td style="text-align: center; width: 33%">&nbsp;</td>
+        <td style="text-align: center; width: 34%">Ο/Η Διευθυντής/τρια</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

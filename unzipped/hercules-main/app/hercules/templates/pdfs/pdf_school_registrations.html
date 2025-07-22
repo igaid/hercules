@@ -1,0 +1,359 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style type='text/css'>
+        @page {
+            size: A4 landscape;
+            margin: 1cm;
+        }
+
+        *, html {
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+        body {
+            padding: 10pt;
+        }
+
+        .table-bordered {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 4px;
+        }
+
+        div.break {
+            page-break-before: always;
+        }
+
+        p {
+            margin: 0.4em;
+        }
+    </style>
+    <title>{{ title }}</title>
+</head>
+<body>
+
+{% if app_state_mode != 'Σχολικά Πρωταθλήματα' %}
+    <h3 style="text-align: center;font-size: 18px;font-weight: bold">{{ title }} - {{ school_year }}</h3>
+    <h4 style="text-align: center;font-size: 16px;font-weight: bold">Ομάδες</h4>
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <th scope="col" class="table-bordered" rowspan="2">#</th>
+            <th scope="col" class="table-bordered" rowspan="2">Σχολείο</th>
+            <th scope="col" class="table-bordered" colspan="4">Ποδόσφαιρο</th>
+            <th scope="col" class="table-bordered" colspan="4">Χειροσφαίριση</th>
+            <th scope="col" class="table-bordered" colspan="4">Καλαθοσφαίριση</th>
+            <th scope="col" class="table-bordered" colspan="4">Beach Volley</th>
+            <th scope="col" class="table-bordered" colspan="4">Πετοσφαίριση</th>
+        </tr>
+        <tr>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Μ1</th>
+            <th scope="col" class="table-bordered">Μ2</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Μ1</th>
+            <th scope="col" class="table-bordered">Μ2</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Μ1</th>
+            <th scope="col" class="table-bordered">Μ2</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Μ1</th>
+            <th scope="col" class="table-bordered">Μ2</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Μ1</th>
+            <th scope="col" class="table-bordered">Μ2</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+            <tr>
+                <td class="table-bordered">
+                    {{ forloop.counter }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.school.last_name }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.football_boys }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.football_girls }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.football_mix_1 }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.football_mix_2 }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.handball_boys }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.handball_girls }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.handball_mix_1 }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.handball_mix_2 }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.basketball_boys }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.basketball_girls }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.basketball_mix_1 }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.basketball_mix_2 }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.beach_volleyball_boys }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.beach_volleyball_girls }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.beach_volleyball_mix_1 }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.beach_volleyball_mix_2 }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.volleyball_boys }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.volleyball_girls }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.volleyball_mix_1 }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.volleyball_mix_2 }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="break"></div>
+
+    <h3 style="text-align: center;font-size: 18px;font-weight: bold">{{ title }} - {{ school_year }}</h3>
+    <h4 style="text-align: center;font-size: 16px;font-weight: bold">Ατομικά Αθλήματα</h4>
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <th scope="col" class="table-bordered" rowspan="2" style="width: 4%">#</th>
+            <th scope="col" class="table-bordered" rowspan="2">Σχολείο</th>
+            <th scope="col" class="table-bordered" colspan="2" style="width: 16%">Κολύμβηση</th>
+            <th scope="col" class="table-bordered" colspan="2" style="width: 16%">Κλασσικός Αθλητισμός</th>
+            <th scope="col" class="table-bordered" colspan="2" style="width: 16%">Ξιφασκία</th>
+            <th scope="col" class="table-bordered" colspan="2" style="width: 16%">Αντισφαίριση</th>
+        </tr>
+        <tr>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+            <tr>
+                <td class="table-bordered">
+                    {{ forloop.counter }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.school.last_name }}
+                </td>
+                <td class="table-bordered">
+                    {% if item.swimming_boys %}
+                        ΝΑΙ
+                    {% else %}
+                        ΟΧΙ
+                    {% endif %}
+                </td>
+                <td class="table-bordered">
+                    {% if item.swimming_girls %}
+                        ΝΑΙ
+                    {% else %}
+                        ΟΧΙ
+                    {% endif %}
+                </td>
+                <td class="table-bordered">
+                    {% if item.track_boys %}
+                        ΝΑΙ
+                    {% else %}
+                        ΟΧΙ
+                    {% endif %}
+                </td>
+                <td class="table-bordered">
+                    {% if item.track_girls %}
+                        ΝΑΙ
+                    {% else %}
+                        ΟΧΙ
+                    {% endif %}
+                </td>
+                <td class="table-bordered">
+                    {% if item.fencing_boys %}
+                        ΝΑΙ
+                    {% else %}
+                        ΟΧΙ
+                    {% endif %}
+                </td>
+                <td class="table-bordered">
+                    {% if item.fencing_girls %}
+                        ΝΑΙ
+                    {% else %}
+                        ΟΧΙ
+                    {% endif %}
+                </td>
+                <td class="table-bordered">
+                    {% if item.tennis_boys %}
+                        ΝΑΙ
+                    {% else %}
+                        ΟΧΙ
+                    {% endif %}
+                </td>
+                <td class="table-bordered">
+                    {% if item.tennis_girls %}
+                        ΝΑΙ
+                    {% else %}
+                        ΟΧΙ
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <h3 style="text-align: center;font-size: 18px;font-weight: bold">{{ title }} - {{ school_year }}</h3>
+    <h4 style="text-align: center;font-size: 16px;font-weight: bold">Ομάδες</h4>
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <th scope="col" class="table-bordered" rowspan="2">#</th>
+            <th scope="col" class="table-bordered" rowspan="2">Σχολείο</th>
+            <th scope="col" class="table-bordered" colspan="2">Ποδόσφαιρο</th>
+            <th scope="col" class="table-bordered" colspan="2">Χειροσφαίριση</th>
+            <th scope="col" class="table-bordered" colspan="2">Καλαθοσφαίριση</th>
+            <th scope="col" class="table-bordered" colspan="2">Beach Volley</th>
+            <th scope="col" class="table-bordered" colspan="2">Πετοσφαίριση</th>
+        </tr>
+        <tr>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+            <tr>
+                <td class="table-bordered">
+                    {{ forloop.counter }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.school.last_name }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.football_boys }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.football_girls }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.handball_boys }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.handball_girls }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.basketball_boys }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.basketball_girls }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.beach_volleyball_boys }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.beach_volleyball_girls }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.volleyball_boys }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.volleyball_girls }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="break"></div>
+
+    <h3 style="text-align: center;font-size: 18px;font-weight: bold">{{ title }} - {{ school_year }}</h3>
+    <h4 style="text-align: center;font-size: 16px;font-weight: bold">Ατομικά Αθλήματα</h4>
+    <table class="table-bordered" style="text-align: center; width: 100%">
+        <thead>
+        <tr>
+            <th scope="col" class="table-bordered" rowspan="2" style="width: 4%">#</th>
+            <th scope="col" class="table-bordered" rowspan="2">Σχολείο</th>
+            <th scope="col" class="table-bordered" colspan="2">Κλασσικός Αθλητισμός</th>
+        </tr>
+        <tr>
+            <th scope="col" class="table-bordered">Α</th>
+            <th scope="col" class="table-bordered">Κ</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+            <tr>
+                <td class="table-bordered">
+                    {{ forloop.counter }}
+                </td>
+                <td class="table-bordered">
+                    {{ item.school.last_name }}
+                </td>
+                <td class="table-bordered">
+                    {% if item.track_boys %}
+                        ΝΑΙ
+                    {% else %}
+                        ΟΧΙ
+                    {% endif %}
+                </td>
+                <td class="table-bordered">
+                    {% if item.track_girls %}
+                        ΝΑΙ
+                    {% else %}
+                        ΟΧΙ
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+</body>
+</html>

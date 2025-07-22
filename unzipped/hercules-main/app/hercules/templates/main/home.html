@@ -1,0 +1,172 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        {% if user.is_authenticated %}
+            {% if user_role == 'ΣΧΟΛΕΙΟ' %}
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            Στατιστικά υποβολών
+                        </th>
+                        <th scope="col" class="text-center">
+                            Σε εκκρεμότητα
+                        </th>
+                        <th scope="col" class="text-center">
+                            Έχουν υποβληθεί
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            Δήλωση Συμμετοχής στους Αγώνες
+                        </td>
+                        <td class="text-center">
+                            {{ school_registration_to_submit_count }}
+                        </td>
+                        <td class="text-center">
+                            {{ school_registration_locked_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                                Λίστες Ομάδων
+                            {% else %}
+                                Καταστάσεις Συμμετοχής Ομάδων
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {{ tsml_to_submit_count }}
+                        </td>
+                        <td class="text-center">
+                            {{ tsml_locked_count }}
+                        </td>
+                    </tr>
+                    {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                        <tr>
+                            <td>
+                                Καταστάσεις Συμμετοχής Ομάδων
+                            </td>
+                            <td class="text-center">
+                                {{ tspl_to_submit_count }}
+                            </td>
+                            <td class="text-center">
+                                {{ tspl_locked_count }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>
+                            Καταστάσεις Συμμετοχής Ατομικών Αθλημάτων
+                        </td>
+                        <td class="text-center">
+                            {{ isg_to_submit_count }}
+                        </td>
+                        <td class="text-center">
+                            {{ isg_locked_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Αγωνίσματα
+                        </td>
+                        <td class="text-center">
+                            {{ isl_to_submit_count }}
+                        </td>
+                        <td class="text-center">
+                            {{ isl_locked_count }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            {% elif user_role == 'ΔΔΕ' %}
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            Στατιστικά υποβολών
+                        </th>
+                        <th scope="col" class="text-center">
+                            Σε εκκρεμότητα
+                        </th>
+                        <th scope="col" class="text-center">
+                            Έχουν υποβληθεί
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>
+                            Δηλώσεις Συμμετοχής στους Αγώνες
+                        </td>
+                        <td class="text-center">
+                            {{ school_registrations_to_submit_count }}
+                        </td>
+                        <td class="text-center">
+                            {{ school_registrations_locked_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                                Λίστες Ομάδων
+                            {% else %}
+                                Καταστάσεις Συμμετοχής Ομάδων
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            {{ tsml_to_submit_count }}
+                        </td>
+                        <td class="text-center">
+                            {{ tsml_locked_count }}
+                        </td>
+                    </tr>
+                    {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                        <tr>
+                            <td>
+                                Καταστάσεις Συμμετοχής Ομάδων
+                            </td>
+                            <td class="text-center">
+                                {{ tspl_to_submit_count }}
+                            </td>
+                            <td class="text-center">
+                                {{ tspl_locked_count }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td>
+                            Καταστάσεις Συμμετοχής Ατομικών Αθλημάτων
+                        </td>
+                        <td class="text-center">
+                            {{ isg_to_submit_count }}
+                        </td>
+                        <td class="text-center">
+                            {{ isg_locked_count }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Αγωνίσματα
+                        </td>
+                        <td class="text-center">
+                            {{ isl_to_submit_count }}
+                        </td>
+                        <td class="text-center">
+                            {{ isl_locked_count }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            {% else %}
+                <h4 class="basic-title">Χρήστης χωρίς ρόλο</h4>
+            {% endif %}
+        {% else %}
+            <div>
+                {{ home_message|safe }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

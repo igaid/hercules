@@ -1,0 +1,21 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container-fluid">
+        <H4>Ενεργοποίηση / Απενεργοποίηση Σχολείων</H4>
+        <hr>
+        <p>
+            <strong>Τρέχουσα κατάσταση:</strong> {{ form.schools_enabled.value }}
+        </p>
+        <hr>
+        <form method="POST">
+            {% csrf_token %}
+
+            {{ form|crispy }}
+            <div class="form-group">
+                <a class="btn btn-success" href="{% url 'main:home' %}">Επιστροφή</a>
+                <button class="btn btn-danger" type="submit">Αλλαγή</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

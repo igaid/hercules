@@ -1,0 +1,116 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style type='text/css'>
+        @page {
+            size: A4 landscape;
+            margin: 1cm;
+        }
+
+        *, html {
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+        body {
+            padding: 10pt;
+        }
+
+        .table-bordered {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 4px;
+            font-family: Arial;
+            font-size: 10px;
+        }
+    </style>
+    <title>{{ title }}</title>
+</head>
+<body>
+<table style="text-align: center; width: 100%">
+    <tbody>
+    <tr>
+        <td style="text-align: center; width: 5%">&nbsp;</td>
+        <td>
+            <strong>
+                {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+                    ΠΑΝΕΛΛΗΝΙΟΙ ΑΓΩΝΕΣ ΛΥΚΕΙΩΝ {{ sport_t1 }} ΣΧ. ΕΤΟΥΣ {{ school_year }}
+                {% else %}
+                    ΑΓΩΝΕΣ ΑθλοΠΑΙΔΕΙΑΣ {{ sport_t1 }} ΣΧ. ΕΤΟΥΣ {{ school_year }}
+                {% endif %}
+            </strong>
+        </td>
+        <td class="table-bordered" style="text-align: center; font-size: 14px; width: 5%"> {{ code }}</td>
+    </tr>
+    </tbody>
+</table>
+
+<p>
+    Τίτλος Σχολείου: {{ school }}
+</p>
+<p style="text-align: center;">
+    {% if app_state_mode == 'Σχολικά Πρωταθλήματα' %}
+        ΛΙΣΤΑ
+    {% else %}
+        ΚΑΤΑΣΤΑΣΗ ΣΥΜΜΕΤΟΧΗΣ
+    {% endif %}
+    ΟΜΑΔΑΣ {{ students_gender }} {{ sport_t2 }} από Α' έως Γ' ΦΑΣΗ
+</p>
+
+<table class="table-bordered" style="text-align: center; width: 100%">
+    <thead>
+    <tr>
+        <td class="table-bordered" style="text-align: center; width: 5%">Α/Α</td>
+        <td class="table-bordered">Επώνυμο</td>
+        <td class="table-bordered">Όνομα</td>
+        <td class="table-bordered">Όνομα Πατέρα</td>
+        <td class="table-bordered">Έτος Γέννησης</td>
+        <td class="table-bordered">Αρ. Μητρώου</td>
+        <td class="table-bordered">Τάξη</td>
+        {% if app_state_mode != 'Σχολικά Πρωταθλήματα' %}
+            <td class="table-bordered">Α.Δ.Υ.Μ.</td>
+        {% endif %}
+        <td class="table-bordered">Υπεύθυνη Δήλωση<br>Γονέα</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for student in data %}
+        <tr>
+            <td class="table-bordered" style="text-align: center">{{ forloop.counter }}</td>
+            <td class="table-bordered">{{ student.last_name }}</td>
+            <td class="table-bordered">{{ student.first_name }}</td>
+            <td class="table-bordered">{{ student.father_name }}</td>
+            <td class="table-bordered">{{ student.year_of_birth }}</td>
+            <td class="table-bordered">{{ student.registry_no }}</td>
+            <td class="table-bordered">{{ student.school_class }}</td>
+            {% if app_state_mode != 'Σχολικά Πρωταθλήματα' %}
+                <td class="table-bordered">NAI</td>
+            {% endif %}
+            <td class="table-bordered">NAI</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<table style="text-align: center; width: 100%; padding-top: 24px">
+    <tbody>
+    <tr>
+        <td style="text-align: center; width: 33%">&nbsp;</td>
+        <td style="text-align: center; width: 33%">&nbsp;</td>
+        <td style="text-align: center; padding-top: 24px; width: 34%">{{ submit_date }}</td>
+    </tr>
+    <tr>
+        <td style="text-align: center; width: 33%">Ο/Η Καθηγητής/τρια Φυσικής Αγωγής</td>
+        <td style="text-align: center; width: 33%">&nbsp;</td>
+        <td style="text-align: center; width: 34%">Ο/Η Διευθυντής/τρια</td>
+    </tr>
+    <tr>
+        <td style="text-align: center; width: 33%">{{ pt_teacher }}</td>
+        <td style="text-align: center; width: 33%">&nbsp;</td>
+        <td style="text-align: center; width: 34%">&nbsp;</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

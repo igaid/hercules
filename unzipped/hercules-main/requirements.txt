@@ -1,0 +1,12 @@
+Django
+django-crispy-forms
+django-registration
+djangorestframework
+django-bootstrap5
+django-bootstrap-modal-forms
+django-impersonate
+django-crispy-forms
+crispy-bootstrap5
+weasyprint
+python-slugify
+sentry-sdk

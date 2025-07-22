@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+{% if not user.is_authenticated %}
+<div>
+    <form method="POST">
+        {% csrf_token %}
+
+        <legend class="border-bottom mb-4">Σύνδεση</legend>
+        {{ form|crispy }}
+
+        <button class="btn btn-outline-info my-3" type="submit">Σύνδεση</button>
+        <small class="text-muted ml-2">
+            <a href="{% url 'password_reset' %}">Ξέχασες τον κωδικό σου ;</a>
+        </small>
+    </form>
+</div>
+
+{#<div class="border-top pt-3">#}
+{#    <small class="text-muted">#}
+{#        Χρειάζεσαι λογαριασμό; <a class="ml-2" href="{% url 'users:register' %}">Εγγραφή</a>#}
+{#    </small>#}
+{#</div>#}
+
+{% else %}
+<h4 class="basic-title">Έχετε ήδη συνδεθεί.</h4>
+{% endif %}
+
+{% endblock content %}

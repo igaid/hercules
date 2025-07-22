@@ -1,0 +1,45 @@
+{% load django_bootstrap5 %}
+
+<form method="post" id="create_individual_sport_list_form">
+    {% csrf_token %}
+
+    <div class="modal-header">
+        <h5 class="modal-title">Αγώνισμα</h5>
+        <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            {% if form.non_field_errors %}
+                <div class="row">
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.individual_sport wrapper_class='invalid' placeholder='' show_label=True %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {% bootstrap_field form.pt_teacher wrapper_class='invalid' placeholder='' show_label=True %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <i class="bi-arrow-left-circle" aria-hidden="true"></i>&nbsp;Επιστροφή
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi-check-circle" aria-hidden="true"></i>&nbsp;Καταχώριση
+        </button>
+    </div>
+</form>

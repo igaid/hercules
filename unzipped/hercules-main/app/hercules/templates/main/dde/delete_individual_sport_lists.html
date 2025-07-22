@@ -1,0 +1,29 @@
+{% extends "main/base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <H4>Διαγραφή καταχωρίσεων ατομικών αθλημάτων</H4>
+        <hr>
+        <p style="color: red">Η ενέργεια αυτή είναι μη αναστρέψιμη.</p>
+        <p>Αν είστε σίγουροι ότι επιθυμείτε τη Διαγραφή των
+            καταχωρίσεων των ατομικών αθλημάτων, πληκτρολογήστε της λέξη "Yes" στο πεδίο παρακάτω και
+            πατήστε το πλήκτρο "Διαγραφή".</p>
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <input type="text" id="safe_text" name="safe_text"
+                       placeholder="Παρακαλώ πληκτρολογήστε τη λέξη ασφαλείας" class="form-control text-center">
+            </div>
+            <p></p>
+            <div class="text-center">
+                <button class="btn btn-success"
+                        type="button" onclick="location.href = '{% url 'main:home' %}';">Επιστροφή
+                </button>
+                <button class="btn btn-danger"
+                        type="submit">Διαγραφή
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

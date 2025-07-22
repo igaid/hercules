@@ -1,0 +1,47 @@
+{% load django_bootstrap5 %}
+
+<form method="post" id="submit_school_registration_form">
+    {% csrf_token %}
+
+    <div class="modal-header">
+        <h5 class="modal-title">Κλείδωμα Δήλωσης Συμμετοχής</h5>
+        <button type="button" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+        <div class="container-fluid">
+            {% if form.non_field_errors %}
+                <div class="row">
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                            {{ error }}
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col">
+                {% bootstrap_field form.school wrapper_class='invalid' placeholder='' show_label=True %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="text-danger pt-3">
+                    Η Δήλωση Συμμετοχής θα κλειδώσει !!!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <i class="bi-arrow-left-circle" aria-hidden="true"></i>&nbsp;Επιστροφή
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi-check-circle" aria-hidden="true"></i>&nbsp;Κλείδωμα
+        </button>
+    </div>
+</form>
