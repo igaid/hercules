@@ -20,7 +20,7 @@ jobs:
       - name: Build and Push Image
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: ./unzipped/hercules-main/Dockerfile
           push: true
           tags: igaidaros/hercules:latest
 
